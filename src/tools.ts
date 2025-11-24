@@ -10,102 +10,60 @@ const server = new McpServer({
 });
 
 // 足し算ツール
-server.registerTool(
+server.tool(
   "add",
+  "Add two numbers",
   {
-    title: "Add two numbers",
-    description: "Add two numbers",
-    inputSchema: z.object({
-      a: z.number(),
-      b: z.number()
-    }),
-    outputSchema: z.object({
-      result: z.number()
-    })
+    a: z.number(),
+    b: z.number()
   },
-  async ({ a, b }) => {
-    const output = {
-      result: a + b
-    }
-    return {
-      content: [{
-        type: "text",
-        text: JSON.stringify(output)
-      }],
-      structuredOutput: output,
-    }
-  }
+  async ({ a, b }) => ({
+    content: [{
+      type: "text",
+      text: `Resultado da soma de ${a} e ${b}: ${a + b}`
+    }]
+  })
 );
 
 // 引き算ツール
-server.registerTool(
+server.tool(
   "subtract",
+  "Subtract two numbers",
   {
-    title: "Subtract two numbers",
-    description: "Subtract two numbers",
-    inputSchema: z.object({
-      a: z.number(),
-      b: z.number()
-    }),
-    outputSchema: z.object({
-      result: z.number()
-    })
+    a: z.number(),
+    b: z.number()
   },
-  async ({ a, b }) => {
-    const output = {
-      result: a - b
-    }
-    return {
-      content: [{
-        type: "text",
-        text: JSON.stringify(output)
-      }],
-      structuredOutput: output,
-    }
-  }
+  async ({ a, b }) => ({
+    content: [{
+      type: "text",
+      text: `Resultado da subtração de ${a} e ${b}: ${a - b}`
+    }]
+  })
 );
 
 // 掛け算ツール
-server.registerTool(
+server.tool(
   "multiply",
+  "Multiply two numbers",
   {
-    title: "Multiply two numbers",
-    description: "Multiply two numbers",
-    inputSchema: z.object({
-      a: z.number(),
-      b: z.number()
-    }),
-    outputSchema: z.object({
-      result: z.number()
-    })
+    a: z.number(),
+    b: z.number()
   },
-  async ({ a, b }) => {
-    const output = {
-      result: a * b
-    }
-    return {
-      content: [{
-        type: "text",
-        text: JSON.stringify(output)
-      }],
-      structuredOutput: output,
-    }
-  }
+  async ({ a, b }) => ({
+    content: [{
+      type: "text",
+      text: `Resultado da multiplicação de ${a} e ${b}: ${a * b}`
+    }]
+  })
 );
 
 // 割り算ツール
-server.registerTool(
+server.tool(
   "divide",
+  "Divide two numbers",
   {
-    title: "Divide two numbers",
-    description: "Divide two numbers",
-    inputSchema: z.object({
-      a: z.number(),
-      b: z.number()
-    }),
-    outputSchema: z.object({
-      result: z.number()
-    })
+    a: z.number(),
+    b: z.number()
   },
   async ({ a, b }) => {
     if (b === 0) {
@@ -118,58 +76,39 @@ server.registerTool(
       };
     }
 
-    const output = {
-      result: a / b
-    }
     return {
       content: [{
         type: "text",
-        text: JSON.stringify(output)
-      }],
-      structuredOutput: output,
+        text: `Resultado da divisão de ${a} e ${b}: ${a / b}`
+      }]
     };
   }
 );
 
 // 複数数の足し算ツール
-server.registerTool(
+server.tool(
   "add-many",
+  "Add multiple numbers together",
   {
-    title: "Add many numbers",
-    description: "Add multiple numbers together",
-    inputSchema: z.object({
-      numbers: z.array(z.number())
-    }),
-    outputSchema: z.object({
-      result: z.number()
-    })
+    numbers: z.array(z.number())
   },
   async ({ numbers }) => {
-    const output = {
-      result: numbers.reduce((sum, num) => sum + num, 0)
-    }
+    const result = numbers.reduce((sum: number, num: number) => sum + num, 0);
     return {
       content: [{
         type: "text",
-        text: JSON.stringify(output)
-      }],
-      structuredOutput: output,
-    }
+        text: `Resultado da soma: ${result}`
+      }]
+    };
   }
 );
 
 // 複数数の引き算ツール
-server.registerTool(
+server.tool(
   "subtract-many",
+  "Subtract multiple numbers from the first number",
   {
-    title: "Subtract many numbers",
-    description: "Subtract multiple numbers from the first number",
-    inputSchema: z.object({
-      numbers: z.array(z.number())
-    }),
-    outputSchema: z.object({
-      result: z.number()
-    })
+    numbers: z.array(z.number())
   },
   async ({ numbers }) => {
     if (numbers.length === 0) {
@@ -182,31 +121,22 @@ server.registerTool(
       };
     }
 
-    const output = {
-      result: numbers.reduce((diff, num) => diff - num)
-    }
+    const result = numbers.reduce((diff: number, num: number) => diff - num);
     return {
       content: [{
         type: "text",
-        text: JSON.stringify(output)
-      }],
-      structuredOutput: output,
-    }
+        text: `Resultado da subtração: ${result}`
+      }]
+    };
   }
 );
 
 // 平均値ツール
-server.registerTool(
+server.tool(
   "mean",
+  "Calculate the mean (average) of multiple numbers",
   {
-    title: "Calculate mean",
-    description: "Calculate the mean (average) of multiple numbers",
-    inputSchema: z.object({
-      numbers: z.array(z.number())
-    }),
-    outputSchema: z.object({
-      result: z.number()
-    })
+    numbers: z.array(z.number())
   },
   async ({ numbers }) => {
     if (numbers.length === 0) {
@@ -219,32 +149,23 @@ server.registerTool(
       };
     }
 
-    const sum = numbers.reduce((acc, num) => acc + num, 0);
-    const output = {
-      result: sum / numbers.length
-    }
+    const sum = numbers.reduce((acc: number, num: number) => acc + num, 0);
+    const result = sum / numbers.length;
     return {
       content: [{
         type: "text",
-        text: JSON.stringify(output)
-      }],
-      structuredOutput: output,
-    }
+        text: `Média: ${result}`
+      }]
+    };
   }
 );
 
 // 中央値ツール
-server.registerTool(
+server.tool(
   "median",
+  "Calculate the median of multiple numbers",
   {
-    title: "Calculate median",
-    description: "Calculate the median of multiple numbers",
-    inputSchema: z.object({
-      numbers: z.array(z.number())
-    }),
-    outputSchema: z.object({
-      result: z.number()
-    })
+    numbers: z.array(z.number())
   },
   async ({ numbers }) => {
     if (numbers.length === 0) {
@@ -259,18 +180,16 @@ server.registerTool(
 
     const sorted = [...numbers].sort((a, b) => a - b);
     const mid = Math.floor(sorted.length / 2);
-    const output = {
-      result: sorted.length % 2 === 0
-        ? (sorted[mid - 1] + sorted[mid]) / 2
-        : sorted[mid]
-    }
+    const result = sorted.length % 2 === 0
+      ? (sorted[mid - 1] + sorted[mid]) / 2
+      : sorted[mid];
+
     return {
       content: [{
         type: "text",
-        text: JSON.stringify(output)
-      }],
-      structuredOutput: output,
-    }
+        text: `Mediana: ${result}`
+      }]
+    };
   }
 );
 
