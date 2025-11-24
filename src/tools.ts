@@ -15,13 +15,13 @@ server.registerTool(
   {
     title: "Add two numbers",
     description: "Add two numbers",
-    inputSchema: {
+    inputSchema: z.object({
       a: z.number(),
       b: z.number()
-    },
-    outputSchema: {
+    }),
+    outputSchema: z.object({
       result: z.number()
-    }
+    })
   },
   async ({ a, b }) => {
     const output = {
@@ -43,13 +43,13 @@ server.registerTool(
   {
     title: "Subtract two numbers",
     description: "Subtract two numbers",
-    inputSchema: {
+    inputSchema: z.object({
       a: z.number(),
       b: z.number()
-    },
-    outputSchema: {
+    }),
+    outputSchema: z.object({
       result: z.number()
-    }
+    })
   },
   async ({ a, b }) => {
     const output = {
@@ -71,13 +71,13 @@ server.registerTool(
   {
     title: "Multiply two numbers",
     description: "Multiply two numbers",
-    inputSchema: {
+    inputSchema: z.object({
       a: z.number(),
       b: z.number()
-    },
-    outputSchema: {
+    }),
+    outputSchema: z.object({
       result: z.number()
-    }
+    })
   },
   async ({ a, b }) => {
     const output = {
@@ -99,13 +99,13 @@ server.registerTool(
   {
     title: "Divide two numbers",
     description: "Divide two numbers",
-    inputSchema: {
+    inputSchema: z.object({
       a: z.number(),
       b: z.number()
-    },
-    outputSchema: {
+    }),
+    outputSchema: z.object({
       result: z.number()
-    }
+    })
   },
   async ({ a, b }) => {
     if (b === 0) {
@@ -137,12 +137,12 @@ server.registerTool(
   {
     title: "Add many numbers",
     description: "Add multiple numbers together",
-    inputSchema: {
+    inputSchema: z.object({
       numbers: z.array(z.number())
-    },
-    outputSchema: {
+    }),
+    outputSchema: z.object({
       result: z.number()
-    }
+    })
   },
   async ({ numbers }) => {
     const output = {
@@ -164,12 +164,12 @@ server.registerTool(
   {
     title: "Subtract many numbers",
     description: "Subtract multiple numbers from the first number",
-    inputSchema: {
+    inputSchema: z.object({
       numbers: z.array(z.number())
-    },
-    outputSchema: {
+    }),
+    outputSchema: z.object({
       result: z.number()
-    }
+    })
   },
   async ({ numbers }) => {
     if (numbers.length === 0) {
@@ -201,12 +201,12 @@ server.registerTool(
   {
     title: "Calculate mean",
     description: "Calculate the mean (average) of multiple numbers",
-    inputSchema: {
+    inputSchema: z.object({
       numbers: z.array(z.number())
-    },
-    outputSchema: {
+    }),
+    outputSchema: z.object({
       result: z.number()
-    }
+    })
   },
   async ({ numbers }) => {
     if (numbers.length === 0) {
@@ -239,12 +239,12 @@ server.registerTool(
   {
     title: "Calculate median",
     description: "Calculate the median of multiple numbers",
-    inputSchema: {
+    inputSchema: z.object({
       numbers: z.array(z.number())
-    },
-    outputSchema: {
+    }),
+    outputSchema: z.object({
       result: z.number()
-    }
+    })
   },
   async ({ numbers }) => {
     if (numbers.length === 0) {
