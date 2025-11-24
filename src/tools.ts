@@ -16,7 +16,7 @@ server.tool(
   async ({ a, b }) => ({
     content: [{
       type: "text",
-      text: `${a} と ${b} の足し算の結果: ${a + b}`
+      text: `Resultado da soma de ${a} e ${b}: ${a + b}`
     }]
   })
 );
@@ -28,7 +28,7 @@ server.tool(
   async ({ a, b }) => ({
     content: [{
       type: "text",
-      text: `${a} と ${b} の引き算の結果: ${a - b}`
+      text: `Resultado da subtração de ${a} e ${b}: ${a - b}`
     }]
   })
 );
@@ -40,7 +40,7 @@ server.tool(
   async ({ a, b }) => ({
     content: [{
       type: "text",
-      text: `${a} と ${b} の掛け算の結果: ${a * b}`
+      text: `Resultado da multiplicação de ${a} e ${b}: ${a * b}`
     }]
   })
 );
@@ -54,7 +54,7 @@ server.tool(
       return {
         content: [{
           type: "text",
-          text: "エラー: ゼロで割ることはできません"
+          text: "Erro: Não é possível dividir por zero"
         }],
         isError: true
       };
@@ -63,7 +63,7 @@ server.tool(
     return {
       content: [{
         type: "text",
-        text: `${a} と ${b} の割り算の結果: ${a / b}`
+        text: `Resultado da divisão de ${a} e ${b}: ${a / b}`
       }]
     };
   }
