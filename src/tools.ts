@@ -14,9 +14,9 @@ server.tool(
   "add",
   { a: z.number(), b: z.number() },
   async ({ a, b }) => ({
-    content: [{ 
-      type: "text", 
-      text: `${a} と ${b} の足し算の結果: ${a + b}` 
+    content: [{
+      type: "text",
+      text: `${a} と ${b} の足し算の結果: ${a + b}`
     }]
   })
 );
@@ -26,9 +26,9 @@ server.tool(
   "subtract",
   { a: z.number(), b: z.number() },
   async ({ a, b }) => ({
-    content: [{ 
-      type: "text", 
-      text: `${a} と ${b} の引き算の結果: ${a - b}` 
+    content: [{
+      type: "text",
+      text: `${a} と ${b} の引き算の結果: ${a - b}`
     }]
   })
 );
@@ -38,9 +38,9 @@ server.tool(
   "multiply",
   { a: z.number(), b: z.number() },
   async ({ a, b }) => ({
-    content: [{ 
-      type: "text", 
-      text: `${a} と ${b} の掛け算の結果: ${a * b}` 
+    content: [{
+      type: "text",
+      text: `${a} と ${b} の掛け算の結果: ${a * b}`
     }]
   })
 );
@@ -52,34 +52,22 @@ server.tool(
   async ({ a, b }) => {
     if (b === 0) {
       return {
-        content: [{ 
-          type: "text", 
-          text: "エラー: ゼロで割ることはできません" 
+        content: [{
+          type: "text",
+          text: "エラー: ゼロで割ることはできません"
         }],
         isError: true
       };
     }
-    
+
     return {
-      content: [{ 
-        type: "text", 
-        text: `${a} と ${b} の割り算の結果: ${a / b}` 
+      content: [{
+        type: "text",
+        text: `${a} と ${b} の割り算の結果: ${a / b}`
       }]
     };
   }
 );
 
 // サーバーを起動
-const transport = new StdioServerTransport();
-server.connect(transport).then(() => {
-  console.error('四則演算 MCP サーバーが stdio で実行中');
-}).catch(error => {
-  console.error('サーバー起動エラー:', error);
-  process.exit(1);
-});
-
-// 終了処理
-process.on('SIGINT', async () => {
-  await server.close();
-  process.exit(0);
-});
+export default server;
